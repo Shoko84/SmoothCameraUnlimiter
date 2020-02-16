@@ -35,7 +35,7 @@
     </horizontal>
   </horizontal>
   <horizontal pref-width='90' pad-top='3'>
-    <text text="To make the third-person camera working, you'll need to have Smooth Camera enabled in the vanilla settings!"
+    <text font-size='3.5' text="To make the third-person camera working, you'll need to have Smooth Camera enabled in the vanilla settings. Also make sure to press 'OK' to confirm changes!"
           align="Center" color='orange'/>
   </horizontal>
 </settings-container>
