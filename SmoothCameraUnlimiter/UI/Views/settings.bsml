@@ -1,0 +1,41 @@
+﻿<settings-container xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+  <bool-setting text='Enable TPS Camera' value='enable-tps-bool' hover-hint='Enables the native Third-Person Camera.'/>
+  <horizontal pref-width='90'>
+    <text text='Third-person camera position:' font-size='5'/>
+  </horizontal>
+  <horizontal>
+    <horizontal horizontal-fit='PreferredSize'>
+      <increment-setting id='pos-x-field' text='X' value='tps-x-pos-float' increment='0.05'
+                         hover-hint="The left/right position" pref-width='28.5'/>
+    </horizontal>
+    <horizontal horizontal-fit='PreferredSize'>
+      <increment-setting id='pos-y-field' text='Y' value='tps-y-pos-float' increment='0.05'
+                         hover-hint="The up/down position" pref-width='28.5'/>
+    </horizontal>
+    <horizontal horizontal-fit='PreferredSize'>
+      <increment-setting id='pos-z-field' text='Z' value='tps-z-pos-float' increment='0.05'
+                         hover-hint="The forward/backward position" pref-width='28.5'/>
+    </horizontal>
+  </horizontal>
+  <horizontal pref-width='90'>
+    <text text='Third-person camera rotation:' font-size='5'/>
+  </horizontal>
+  <horizontal>
+    <horizontal horizontal-fit='PreferredSize'>
+      <increment-setting id='rot-x-field' text='X' value='tps-x-rot-float' min='-355' max='355' increment='5'
+                         hover-hint="The roll axis" pref-width='28.5' />
+    </horizontal>
+    <horizontal horizontal-fit='PreferredSize'>
+      <increment-setting id='rot-y-field' text='Y' value='tps-y-rot-float' min='-355' max='355' increment='5'
+                         hover-hint="The pitch axis" pref-width='28.5' />
+    </horizontal>
+    <horizontal horizontal-fit='PreferredSize'>
+      <increment-setting id='rot-z-field' text='Z' value='tps-z-rot-float' min='-355' max='355' increment='5'
+                         hover-hint="The yaw axis" pref-width='28.5' />
+    </horizontal>
+  </horizontal>
+  <horizontal pref-width='90' pad-top='3'>
+    <text text="To make the third-person camera working, you'll need to have Smooth Camera enabled in the vanilla settings!"
+          align="Center" color='orange'/>
+  </horizontal>
+</settings-container>

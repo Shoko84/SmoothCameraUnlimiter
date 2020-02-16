@@ -1,0 +1,13 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/nike4613/ModSaber-MetadataFileSchema/master/Schema.json",
+  "author": "Shoko84",
+  "description": "Unlimits the Smooth Camera settings and enables the built-in TPS Camera",
+  "gameVersion": "1.7.0",
+  "id": "SmoothCameraUnlimiter",
+  "name": "SmoothCameraUnlimiter",
+  "version": "1.0.1",
+  "dependsOn": {
+    "BS Utils": "^1.4.1",
+    "BeatSaberMarkupLanguage": "^1.1.4"
+  }
+}
