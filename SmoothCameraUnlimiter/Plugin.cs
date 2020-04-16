@@ -2,44 +2,54 @@
 using System.Reflection;
 using BeatSaberMarkupLanguage.Settings;
 using BS_Utils.Utilities;
-using Harmony;
+using HarmonyLib;
 using IPA;
-using IPA.Config;
-using IPA.Utilities;
+using IPA.Config.Stores;
 using SmoothCameraUnlimiter.UI.ViewControllers;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Config = IPA.Config.Config;
-using IPALogger = IPA.Logging.Logger;
+using Logger = IPA.Logging.Logger;
 using ReflectionUtil = BS_Utils.Utilities.ReflectionUtil;
 
 namespace SmoothCameraUnlimiter
 {
-    public class Plugin : IBeatSaberPlugin
+    [Plugin(RuntimeOptions.SingleStartInit)]
+    public class Plugin
     {
-        internal static Ref<PluginConfig> config;
-        internal static IConfigProvider   configProvider;
+        #region Properties
 
-        public void Init(IPALogger logger, [Config.Prefer("json")] IConfigProvider cfgProvider)
+        public static Logger Log { get; private set; }
+
+        #endregion
+
+        #region BSIPA Events
+
+        [Init]
+        public Plugin(Logger logger, Config conf)
         {
-            Logger.log = logger;
-            BSEvents.menuSceneLoadedFresh += AddSettingsSubMenu;
-            BSEvents.menuSceneLoadedFresh += UnlimitSmoothCamera;
-            configProvider = cfgProvider;
-
-            config = cfgProvider.MakeLink<PluginConfig>((p, v) => {
-                if (v.Value == null || v.Value.RegenerateConfig)
-                    p.Store(v.Value = new PluginConfig { RegenerateConfig = false });
-                config = v;
-            });
+            Log = logger;
+            PluginConfig.Instance = conf.Generated<PluginConfig>();
         }
 
-        private void AddSettingsSubMenu()
+        [OnStart]
+        public void OnApplicationStart()
+        {
+            BSEvents.menuSceneLoadedFresh += AddSettingsSubMenu;
+            BSEvents.menuSceneLoadedFresh += UnlimitSmoothCamera;
+            var harmony = new Harmony("com.Shoko84.beatsaber.SmoothCameraUnlimiter");
+            harmony.PatchAll(Assembly.GetExecutingAssembly());
+        }
+
+        #endregion
+
+        #region Events
+
+        private static void AddSettingsSubMenu()
         {
             BSMLSettings.instance.AddSettingsMenu("<size=75%>Smooth Camera Unlimiter</size>", "SmoothCameraUnlimiter.UI.Views.settings.bsml", SettingsController.instance);
         }
 
-        private void UnlimitSmoothCamera()
+        private static void UnlimitSmoothCamera()
         {
             var scssc = Resources.FindObjectsOfTypeAll<SmoothCameraSmoothnessSettingsController>().FirstOrDefault();
             if (scssc == null) return;
@@ -54,22 +64,6 @@ namespace SmoothCameraUnlimiter
             ReflectionUtil.SetPrivateField(fflsvc, "_values", fs.ToArray());
         }
 
-        public void OnApplicationStart()
-        {
-            var harmony = HarmonyInstance.Create("com.Shoko84.beatsaber.SmoothCameraUnlimiter");
-            harmony.PatchAll(Assembly.GetExecutingAssembly());
-        }
-
-        public void OnApplicationQuit() { }
-
-        public void OnFixedUpdate() { }
-
-        public void OnUpdate() { }
-
-        public void OnActiveSceneChanged(Scene prevScene, Scene nextScene) { }
-
-        public void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode) { }
-
-        public void OnSceneUnloaded(Scene scene) { }
+        #endregion
     }
 }

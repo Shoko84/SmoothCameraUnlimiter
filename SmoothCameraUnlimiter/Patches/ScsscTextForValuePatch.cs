@@ -1,6 +1,6 @@
 ﻿using System;
-using Harmony;
-using IPA.Utilities;
+using BS_Utils.Utilities;
+using HarmonyLib;
 
 namespace SmoothCameraUnlimiter.Patches
 {

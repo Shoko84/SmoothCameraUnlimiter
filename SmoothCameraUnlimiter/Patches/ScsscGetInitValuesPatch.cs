@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Harmony;
-using IPA.Utilities;
+using BS_Utils.Utilities;
+using HarmonyLib;
 
 namespace SmoothCameraUnlimiter.Patches
 {
